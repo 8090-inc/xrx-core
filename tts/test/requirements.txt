@@ -1,0 +1,10 @@
+asyncio
+websockets
+pyaudio
+pytest
+pytest-asyncio
+httpx
+websockets
+pyaudio
+fastapi
+requests==2.32.3

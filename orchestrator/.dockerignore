@@ -1,0 +1,6 @@
+.venv
+.env
+.ignore
+node_modules
+build
+.docker.env

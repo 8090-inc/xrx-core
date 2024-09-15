@@ -1,0 +1,126 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # Specify the required Python version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify the required Node.js version
+
+  build-xrx-client:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd react-xrx-client
+          npm install
+
+      - name: Prepare .env file
+        run: |
+          echo "NEXT_PUBLIC_ORCHESTRATOR_HOST=localhost" > .env
+          echo "NEXT_PUBLIC_ORCHESTRATOR_PORT=8000" >> .env
+          echo "NEXT_PUBLIC_ORCHESTRATOR_PATH=/api/v1/ws" >> .env
+
+      - name: Build
+        run: |
+          cd react-xrx-client
+          npm run build
+
+  build-orchestrator:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd orchestrator
+          npm install
+
+  build-stt:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y portaudio19-dev
+          sudo apt-get install -y libportaudio2
+
+      - name: Install dependencies
+        run: |
+          cd stt
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          cd stt/tests
+          pip install -r requirements.txt
+          pytest
+
+  build-tts:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+  
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+  
+      - name: Install dependencies
+        run: |
+          cd tts
+          pip install -r requirements.txt
+
+      # - name: Run tests
+        #   run: |
+        #     cd stt/tests  `
+        # python test/test.py  
+
+  build-all:
+    runs-on: ubuntu-latest
+    needs: [build-xrx-client, build-orchestrator, build-stt, build-tts]
+    steps:
+      - name: Success message
+        run: echo "All builds and tests passed successfully!"

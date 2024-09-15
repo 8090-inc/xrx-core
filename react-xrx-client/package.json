@@ -1,0 +1,26 @@
+{
+  "name": "react-xrx-client",
+  "version": "0.1.0",
+  "description": "A React library for client-side functionality for xRx",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "client",
+    "library"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/react": "^18.0.0",
+    "typescript": "^4.5.0"
+  }
+}

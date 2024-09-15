@@ -1,0 +1,7 @@
+pyaudio
+webrtcvad
+websockets
+pytest
+pytest-asyncio
+httpx
+numpy

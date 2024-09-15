@@ -1,0 +1,4 @@
+pyaudio
+webrtcvad
+simpleaudio
+websockets
