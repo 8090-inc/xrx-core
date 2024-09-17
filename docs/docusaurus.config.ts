@@ -43,7 +43,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: ({ docPath }) => {
             const branch = getCurrentGitBranch();
-            return `https://github.com/8090-inc/xrx/blob/${branch}/docs/content/${docPath}`;
+            return `https://github.com/8090-inc/xrx-core/blob/${branch}/docs/content/${docPath}`;
           },
         },
         blog: false, // Disable the blog
@@ -115,8 +115,8 @@ const config: Config = {
         { to: "/blog", label: "Blog", position: "left" },
         */
         {
-          href: 'https://github.com/8090-inc/xrx',
-          label: 'GitHub',
+          href: 'https://github.com/8090-inc/xrx-core',
+          label: 'xRx-Core GitHub',
           position: 'right',
         },
         {
