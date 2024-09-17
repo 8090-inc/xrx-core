@@ -42,6 +42,7 @@ graph BT
 
 ### Parameters and API Keys
 - Set the `TTS_PROVIDER` environment variable to either 'elevenlabs', 'deepgram', 'openai', or 'cartesia' to choose the TTS provider.
+- Set the `TTS_SAMPLE_RATE` environment variable to the sample rate of the TTS model. Default is 24000Hz.
 - Access to Elevenlabs. The following environment variables are available for Elevenlabs API usage. Sign up at [Elevenlabs](https://elevenlabs.io/app/sign-up) to obtain the necessary keys:
     - `ELEVENLABS_API_KEY`
     - `ELEVENLABS_VOICE_ID`
@@ -63,10 +64,6 @@ graph BT
 
 ## Technical Notes
 
-### TTS Encoding
-- The system works with PCM 16-bit encoding.
-- The sample rate for all models is 16000Hz. If a model uses a different sample rate, the audio should be resampled to 16000Hz.
-
 ### Input Limitations
 - In [main.py](https://github.com/8090-inc/xrx/blob/main/tts/app/main.py), there is a limit set to the maximum input length sent to the TTS API, which is 4000 characters. This can be adjusted if the TTS API has smaller limits.
 
@@ -77,7 +74,7 @@ graph BT
 
 ### Streaming Chunks
 - Every TTS model is implemented with streaming capabilities to achieve extremely fast responses.
-- Streaming is achieved by chunking the payload and sending each chunk as soon as it is ready. Both inputs and outputs are streamed.
+- Streaming is achieved by chunking the payload and sending each chunk as soon as it is ready. Both inputs and outputs are streamed if the API endpoint supports it.
 - Cached audio files are sent back to the client in chunks of 4096 bytes.
 - The chunked approach ensures efficient memory usage and maintains consistent streaming behavior, which is crucial for real-time audio playback.
 

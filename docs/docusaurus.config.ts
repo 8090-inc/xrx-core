@@ -19,9 +19,9 @@ const config: Config = {
   favicon: 'img/base-image.png',
 
   url: 'https://8090-inc.github.io',
-  baseUrl: '/xrx/',
+  baseUrl: '/xrx-core/',
   organizationName: '8090-inc',
-  projectName: 'xrx',
+  projectName: 'xrx-core',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -46,6 +46,7 @@ const config: Config = {
             return `https://github.com/8090-inc/xrx/blob/${branch}/docs/content/${docPath}`;
           },
         },
+        blog: false, // Disable the blog
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -110,7 +111,9 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
+        /*
         { to: "/blog", label: "Blog", position: "left" },
+        */
         {
           href: 'https://github.com/8090-inc/xrx',
           label: 'GitHub',
@@ -139,23 +142,24 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/8090-inc/xrx',
+              href: 'https://github.com/8090-inc/xrx-core',
             },
-            {
+            /*{
               label: 'Discord',
               href: 'https://discord.gg/8090',
-            },
+            },*/
           ],
         },
         {
           title: 'More',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/8090-inc/xrx',
+              label: 'Website',
+              href: 'https://8090.inc',
             },
           ],
         },
+        /*
         {
           title: 'Learn',
           items: [
@@ -165,6 +169,7 @@ const config: Config = {
             },
           ],
         },
+        */
       ],
       copyright: `Copyright © ${new Date().getFullYear()} xRx`,
     },

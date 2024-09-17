@@ -6,6 +6,7 @@ sidebar_position: 3
 
 This application provides an audio and visual experience for gathering information from a patient before they enter a doctor's office. As you talk, the screen fills in with the details you share, making reviewing your information easy in addition to verbal confirmation.
 
+> **Note:** For additional information and details about the Patient Intake application, please refer to the Patient Intake README file in the repository.
 
 ## Check Redis Integration
 

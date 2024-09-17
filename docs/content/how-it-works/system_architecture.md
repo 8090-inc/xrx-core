@@ -59,7 +59,13 @@ sequenceDiagram
 ```
 
 ## Deployment Specifics
-
 xRx's deployment is designed to be modular in nature. This means that you can swap out any component of the system with your own custom implementation. The entire system is defined as a single docker-compose file with a single connected network. This allows for easy swapping of components and deployment to a variety of different environments.
 
-Each system component is defined as a docker image. The docker-compose file located in the application folder will then start each component and connect it to the same network.
+A key design choice in xRx is the separation of the core framework from specific applications. The xRx core, which remains consistent across different applications, is imported as a submodule in each app. This core contains modules that are plug-and-play for custom applications, providing a foundation of reusable components.
+
+This separation method allows for greater flexibility in application development.
+The xRx core includes containerized modules and reusable libraries:
+- **Reusable libraries:** These include the agent framework and UI library, which can be imported into each specific app.
+- **Containerized modules:** The xRx system includes components such as TTS, STT, Guardrails, and the Orchestrator, which are defined as separate Docker containers. The docker-compose file located in the application folder starts each of these containerized components and connects them to the same network.
+
+This modular structure, combined with the separation of core libraries and containerized components from the application-specific logic, enables developers to easily customize and extend xRx for their specific needs while benefiting from a solid, tested foundation. It also allows for easy swapping or upgrading of individual components without affecting the entire system.

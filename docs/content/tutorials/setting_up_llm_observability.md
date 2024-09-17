@@ -133,7 +133,7 @@ response = llm_client.chat.completions.create(
 )
 ```
 
-**Note:** Based on if you need an async or sync LLM client, you would need to modify the `initialize_llm_client()` function to get the appropriate OpenAI client.
+> **Note:** Based on if you need an async or sync LLM client, you would need to modify the `initialize_llm_client()` function to get the appropriate OpenAI client.
 
 ### Other tracing elements
 

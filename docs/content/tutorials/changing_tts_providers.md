@@ -26,6 +26,7 @@ To change the TTS provider, you need to modify the environment variables in your
 # === Text-to-speech options ===
 # TTS provider. Choices are "elevenlabs", "deepgram", "openai", or "cartesia"
 TTS_PROVIDER="elevenlabs"
+TTS_SAMPLE_RATE="24000"
 
 # Elevenlabs
 ELEVENLABS_API_KEY="<Elevenlabs API key>"
@@ -117,11 +118,10 @@ docker-compose logs xrx-tts
 
 ## Technical Notes
 
-- The TTS system works with PCM 16-bit encoding.
-- The sample rate for all models is 16000Hz. If a model uses a different sample rate, the audio should be resampled to 16000Hz.
+- The default sample rate for all models is 24000Hz. If a model uses a different sample rate, the `.env` variable `TTS_SAMPLE_RATE` should be changed to match the sample rate of the model.
 - There is a limit of 4000 characters for the maximum input length sent to the TTS API. This can be adjusted if the TTS API has smaller limits.
 - The TTS service implements a caching mechanism to improve performance. Synthesized audio is cached on disk in the `cache` directory.
-- Every TTS model is implemented with streaming capabilities for fast responses. Both inputs and outputs are streamed in chunks.
+- Every TTS model is implemented with streaming capabilities for fast responses.
 
 By following these steps, you can easily switch between different TTS providers in your xRx system, allowing you to choose the best option for your specific use case and requirements.
 

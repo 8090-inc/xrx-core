@@ -26,6 +26,7 @@ To change the STT provider, you need to modify the environment variables in your
 # === Speech-to-text options ===
 # STT provider. Choices are "groq", "deepgram", or "faster_whisper"
 STT_PROVIDER="deepgram"
+STT_SAMPLE_RATE="16000"
 
 # Deepgram
 DG_API_KEY="<Deepgram API key>"

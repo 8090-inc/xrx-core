@@ -4,14 +4,15 @@ sidebar_position: 8
 
 # Creating your own Widgets
 
-This guide explains how widgets are processed from the agent to the front-end and how you can create your own custom widgets. Note: This guide is for the application `Shopify Agent` however it can be adapted for other agents including any agent you write yourself as long as you follow the same pattern and output formats specified below.
+This guide explains how widgets are processed from the agent to the front-end and how you can create your own custom widgets. 
 
+> **Note:** This guide is for the application `Shopify App` however it can be adapted for other applications including any app you write yourself as long as you follow the same pattern and output formats specified below.
 
 ## Information Flow Details
 
-**Agent Generation**
+### Agent Generation
 
-The agent generates a widget output in the `Widget` class located in the `applications/shopify-agent/app/agent/graph/nodes/widget.py` file. This method matches the tool used by the agent to a specific widget type and creates a widget output dictionary in the following format:
+The agent generates a widget output in the `Widget` class located in the `shopify-app/reasoning/app/agent/graph/nodes/widget.py` file. This method matches the tool used by the agent to a specific widget type and creates a widget output dictionary in the following format:
 
 ```python
 widget_output = {
@@ -31,9 +32,9 @@ widget_output = {
 
 The 'tool-name' in the 'available-tools' array corresponds to user actions that can be taken on the widget output. These tools represent the next possible actions a user can perform based on the current widget data. These actions are represented as more tools. For example, in a `product_list` tool might spawn a widget which has an `available-tools` array which contains a `view_product_details` tool which the user can click on to view more information about the product.
 
-**Executor Processing**
+### Executor Processing
 
-The `run_agent` function in `applications/shopify-agent/app/agent/executor.py` processes the widget output. It formats the widget data and includes it in the response stream in the following format:
+The `run_agent` function in `shopify-app/reasoning/app/agent/executor.py` processes the widget output. It formats the widget data and includes it in the response stream in the following format:
 
 ```json
 {
@@ -46,7 +47,7 @@ The `run_agent` function in `applications/shopify-agent/app/agent/executor.py` p
 ```
 It is important to note that this "node": "Widget" key value pair is extremely important to the orchestrator and front-end to know that the output is a widget which must be rendered.
 
-**Orchestrator Handling**:
+### Orchestrator Handling
 
 The orchestrator (`orchestrator/src/Session.ts`) receives the widget data and passes it to the front-end:
 
@@ -60,9 +61,9 @@ if(type === 'Widget') {
 
 `agentResponse` is the response from the "output" key from executor which includes the widget data in JSON format.
 
-**Front-end Rendering**
+### Front-end Rendering
 
-The front-end (`applications/shopify-agent/nextjs-client/src/app/page.tsx`) receives the widget data and renders it via a switch statement. The `renderWidget` function processes the widget data and returns the appropriate JSX based on the widget type. For example:
+The front-end (`shopify-app/nextjs-client/src/app/page.tsx`) receives the widget data and renders it via a switch statement. The `renderWidget` function processes the widget data and returns the appropriate JSX based on the widget type. For example:
 
 ```typescript
 switch (widget.type) {
@@ -126,10 +127,10 @@ To create your own custom widgets, you'll need to modify code in several places:
    ```
 
 2. **Executor Processing**:
-   Ensure that the `run_agent` function in `applications/shopify-agent/app/agent/executor.py` can handle your new widget type. The existing code should work for new widgets as long as they follow the standard format.
+   Ensure that the `run_agent` function in `shopify-app/reasoning/app/agent/executor.py` can handle your new widget type. The existing code should work for new widgets as long as they follow the standard format.
 
 3. **Front-end Widget Rendering**:
-   In `nextjs-client/src/app/page.tsx`, add a new case to the `renderWidget` function:
+   In `shopify-app/nextjs-client/src/app/page.tsx`, add a new case to the `renderWidget` function:
 
    ```typescript
    case 'your-new-widget-type':
@@ -164,7 +165,7 @@ To create your own custom widgets, you'll need to modify code in several places:
    ```
 
 4. **Add New Tool (if necessary)**:
-   If your widget requires a new tool, add it to `applications/shopify-agent/app/agent/tools/shopify.py`:
+   If your widget requires a new tool, add it to `shopify-app/reasoning/app/agent/tools/shopify.py`:
 
    ```python
    @observability_decorator(name="your_new_tool")
@@ -180,7 +181,7 @@ To create your own custom widgets, you'll need to modify code in several places:
    ```
 
 5. **Update Agent Logic (if necessary)**:
-   If your widget requires new agent logic, update the relevant files in the `applications/shopify-agent/app/agent/` directory.
+   If your widget requires new agent logic, update the relevant files in the `shopify-app/reasoning/app/agent/` directory.
 
 ## Using a Custom Reasoning Agent
 

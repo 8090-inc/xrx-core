@@ -55,6 +55,72 @@ When thinking about how common ways users interact with applications, the vast m
 
 Now lets dive into how this all works on the backend. The Shopify reasoning agent is a tool calling agent which has been well documented in the LLM agent space. The execution paradigm is an asynchronous graph where each node determines which subsequent node(s) to traverse to based on its outcome. These nodes might be a single call to an LLM, multiple calls to an LLM, or simple python code which calls no LLMs.
 
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'background': '#ffffff' }}}%%
+graph TD
+    A[main.py] --> B[executor.py]
+    subgraph config["config.py"]
+        D[Context Manager]
+        F[Tools]
+        C[Graph]
+        B[executor.py]
+        E[Utils]
+        B --> D
+        B <--> C
+        B --> E
+        F --> C
+        subgraph F[Tools]
+            F1[shopify.py]
+            subgraph F1[shopify.py]
+                F11[get_products]
+                F12[get_product_details]
+                F13[add_item_to_cart]
+                F14[delete_item_from_cart]
+                F15[get_cart_summary]
+                F16[submit_cart_for_order]
+                F17[get_order_status]
+            end
+        end
+        subgraph C[Graph]
+            C1[Routing] --> C2[CustomerResponse]
+            C1 --> C4[ChooseTool]
+            C3 --> C1
+            C4 --> C5[IdentifyToolParams]
+            C5 --> C6[ExecuteTool]
+            C6 --> C7[Widget]
+            C6 --> C8[ConvertNaturalLanguage]
+            C7 --> C8
+            C8 --> C1
+            C1 --> C3[TaskDescriptionResponse]
+        end
+        subgraph E[Utils]
+            E1[llm.py]
+            E2[shopify.py]
+            subgraph E1[llm.py]
+                E11[message format conversion]
+                E12[make tools description]
+                E13[initialize llm]
+            end
+            subgraph E2[shopify.py]
+                E21[init_shopify]
+                E22[get_product_image]
+                E23[populate_images]
+                E24[get_cart_summary_from_object]
+                E25[get_variant_id_from_sku]
+                E26[make_new_blank_cart]
+            end
+        end
+    end
+    classDef configClass fill:transparent,stroke:#ADD8E6,stroke-width:3px;
+    class config configClass;
+    classDef subgraphClass fill:transparent,stroke:#ADD8E6,stroke-width:2px;
+    class F,C,E,F1,E1,E2 subgraphClass;
+    %% Set the background to white and border to light blue
+    style config fill:#ffffff,stroke:#ADD8E6,stroke-width:3px;
+    linkStyle default stroke-width:2px;
+```
+
+
 Let's dive into the specifics of how these components are constructed...
 
 ### Graph Execution

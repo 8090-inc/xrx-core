@@ -29,6 +29,8 @@ sequenceDiagram
 
 ## Components
 
+The xRx system is designed with a modular architecture, separating the core framework from specific applications. This design allows for greater flexibility and customization in application development.
+
 ### Application
 The application houses all the application-specific code. This structure ensures efficient development and maintenance of the application functionality.
 
@@ -37,17 +39,25 @@ The application houses all the application-specific code. This structure ensures
 - #### Reasoning Agent
   The reasoning agent processes user inputs and generates appropriate responses. It communicates with the orchestrator via HTTP requests which produce event streaming outputs via POST requests. The server is implemented using FastAPI in Python.
 
-### Orchestrator
+### xRx Core
+The xRx Core contains the essential components that form the foundation of the xRx system. These components are designed to be reusable across different applications.
 
-The orchestrator is a Fastify server that manages WebSocket connections with the front end and coordinates communication with the STT, TTS, and reasoning agent services.
+- #### Orchestrator
+  **[Container]** The orchestrator is a Fastify server that manages WebSocket connections with the front end and coordinates communication with the STT, TTS, and reasoning agent services.
 
-### TTS (Text-to-Speech)
+- #### TTS (Text-to-Speech)
+  **[Container]** The TTS service converts text responses from the reasoning agent into audio. It communicates with the orchestrator via WebSocket connections. The server is implemented using FastAPI in Python.
 
-The TTS service converts text responses from the reasoning agent into audio. It communicates with the orchestrator via WebSocket connections. The server is implemented using FastAPI in Python.
+- #### STT (Speech-to-Text)
+  **[Container]** The STT service converts audio inputs from the front end into text. It communicates with the orchestrator via WebSocket connections. The server is implemented using FastAPI in Python.
 
-### STT (Speech-to-Text)
+- #### React xRx Client Library
+  **[Library]** A reusable React library that provides UI components and utilities for building the front-end of xRx-powered applications. It can be imported into each specific app to streamline development.
 
-The STT service converts audio inputs from the front end into text. It communicates with the orchestrator via WebSocket connections. The server is implemented using FastAPI in Python.
+- #### Agent Framework
+  **[Library]** A reusable library that provides the foundation for building reasoning agents. It includes common functionalities and structures that can be extended and customized for specific application needs.
+
+These components are either containerized modules (like TTS, STT, Orchestrator) defined as separate Docker containers, or reusable libraries (like react-xrx-client and agent_framework) that can be imported into specific applications. This modular structure allows developers to easily customize and extend xRx for their specific needs while benefiting from a solid, tested foundation.
 
 ## Communication Flow
 

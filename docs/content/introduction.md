@@ -8,13 +8,13 @@ Welcome to the xRx documentation! This documentation is designed to help you und
 
 ## What is xRx?
 
-xRx is a framework for building AI-powered reasoning systems that interact with users across multiple modalities, where "x" represents the flexible integration of text, voice, and other interaction forms.
+**Any modality input (x), reasoning (R), any modality output (x).**
 
-xRx stands for "any modality input (x), reasoning (R), any modality output (x)."
+xRx is a framework for building AI-powered applications that interact with users across multiple modalities, where "x" represents the flexible integration of text, voice, and other interaction forms.
 
 ## Project Motivation
 
-We believe the way we interact with software is changing and we're excited to be on the forefront of this movement. The xRx repository serves as an accelerator for building systems for building voice based AI assistants. Unlike other audio based AI systems, xRx is not only to deliver a seamless audio experience. It is designed to be a building block for AI powered reasoning systems which can interact with users in a variety of modalities (audio, text, app widgets, and more).
+We believe the way we interact with software is changing and we're excited to be on the forefront of this movement. The xRx repository accelerates the development of multimodal AI applications, going beyond the typical focus on audio experiences. It serves as a foundation for AI-powered reasoning systems capable of engaging users through various modalities, including audio, text, app widgets, and more. This versatility sets xRx apart from most current multimodal AI systems, positioning it as a comprehensive solution for the evolving landscape of software interaction.
 
 ## Navigating the Documentation
 

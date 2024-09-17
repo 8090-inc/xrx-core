@@ -78,6 +78,7 @@ The server handles JSON messages to initiate or cancel the text-to-speech synthe
 
 ### Environment Variables
 - `TTS_PROVIDER`: Specifies the TTS provider to use (default: "elevenlabs")
+- `TTS_SAMPLE_RATE`: Specifies the sample rate for the TTS output (default: 24000Hz)
 - ElevenLabs:
   - `ELEVENLABS_API_KEY`: API key for ElevenLabs authentication
   - `ELEVENLABS_VOICE_ID`: Voice ID for the ElevenLabs TTS service

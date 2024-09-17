@@ -71,7 +71,11 @@ Update the .env file with the following:
 * Update the additional environment variables. Documentation on this can be found in the [Quick Start](/docs/quickstart) section.
 * Update the `NEXT_PUBLIC_UI` variable with either `"pizza-agent"` or `"shoe-agent"` depending on your store.
 * Update the `SHOPIFY_STORE_INFO` with the name of your shop. This is what the agent will refer to your shop as. We recommend, `Shoe Shop` based on the products we will be using in this example.
-* Update the `SHOPIFY_CUSTOMER_SERVICE_TASK` with the task you want the agent to perform. For example, `You are a customer service representative who is helping customers order items from the shop. You are courteous, helpful and concise.`
+* Update the `SHOPIFY_CUSTOMER_SERVICE_TASK` with the task you want the agent to perform. For example:
+  ```
+  SHOPIFY_CUSTOMER_SERVICE_TASK="You are a customer service representative who is 
+  helping customers order items from the shop. You are courteous, helpful and concise."
+  ```
 
 ## Check Redis Integration
 
