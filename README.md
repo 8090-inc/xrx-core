@@ -82,7 +82,7 @@ To showcase the capabilities of xRx, we've created multiple reasoning systems:
 
 ### Simple Tool Calling Agent
 
-We've created a simple tool calling agent that demonstrates basic functionality. This agent has access to tools like weather and time retrievers, and stock price lookup. It shows how any Python-based reasoning agent can be deployed into the xRx system. The code for this reasoning agent can be found [here](./reasoning/simple-agent).
+We've created a simple tool calling agent that demonstrates basic functionality. This agent has access to tools like weather and time retrievers, and stock price lookup. It shows how any Python-based reasoning agent can be deployed into the xRx system. The code for this reasoning agent can be found [here](https://github.com/8090-inc/xrx-sample-apps/tree/develop/simple-app).
 
 ### Shopify Interaction Agent
 
@@ -98,7 +98,7 @@ The [patient-information-agent](https://github.com/8090-inc/xrx-sample-apps/tree
 
 ### Template Agent
 
-For developers looking to create their own reasoning agents, we provide a [template-agent](./reasoning/template-agent). This serves as a starting point for developing new reasoning agents within the xRx framework, offering a basic structure that can be easily customized and extended.
+For developers looking to create their own reasoning agents, we provide a [template-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop/simple-app). This serves as a starting point for developing new reasoning agents within the xRx framework, offering a basic structure that can be easily customized and extended.
 
 Each of these agents showcases different aspects of the xRx system's capabilities, from simple tool integration to complex domain-specific interactions. They demonstrate the flexibility and power of the xRx framework in building sophisticated AI-powered user experiences across various domains.
 </details>
@@ -156,7 +156,7 @@ GROQ_STT_API_KEY="<your groq api key>"
 
 ### How To Run with a Simple Agent
 
-1. Create a `.env` file with content at the root (`./`) See [env.quickstart](config/env-examples/env.quickstart) for an example of what this environment file should look like.
+1. Create a `.env` file with content at the root (`./`) See [env.quickstart](https://github.com/8090-inc/xrx-sample-apps/blob/develop/simple-app/env-example.txt) for an example of what this environment file should look like.
 
 2. Build and run the system using Docker:
 
