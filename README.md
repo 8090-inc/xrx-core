@@ -44,11 +44,11 @@ style G fill:#E1BEE7,stroke:#4A148C,stroke-width:2px,color:#000000
 
 ### High-Level Architecture
 
-- **Client**: Front end app experience which renders the UI and handles websocket communication with the Orchestrator. [Client Directory](./nextjs-client)
+- **Client**: Front end app experience which renders the UI and handles websocket communication with the Orchestrator. [Client Directory](./react-xrx-client)
 - **Orchestrator**: Manages the flow of data between various AI and traditional software components. [Orchestrator Directory](./orchestrator)
 - **STT (Speech-to-Text)**: Converts audio input to text. [STT Directory](./stt)
 - **TTS (Text-to-Speech)**: Converts text responses back to audio. [TTS Directory](./tts)
-- **Agent**: A collection reasoning agents responsible for the "reasoning" system of xRx. [Reasoning Directory](./reasoning)
+- **Agent**: A collection reasoning agents responsible for the "reasoning" system of xRx. [Reasoning Directory](./agent_framework)
 - **Guardrails Proxy**: A safety layer for the reasoning system. [Guardrails Proxy Directory](./guardrails-proxy)
 
 These components then communicate via the following sequence diagram
@@ -86,15 +86,15 @@ We've created a simple tool calling agent that demonstrates basic functionality.
 
 ### Shopify Interaction Agent
 
-We have built a sophisticated reasoning system that interacts with a Shopify store. The [shopify-agent](./reasoning/shopify-agent) allows users to interact with a reasoning system built on top of Shopify, handling tasks like product inquiries, order placement, and customer service.
+We have built a sophisticated reasoning system that interacts with a Shopify store. The [shopify-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop/shopify-app) allows users to interact with a reasoning system built on top of Shopify, handling tasks like product inquiries, order placement, and customer service.
 
 ### Wolfram Assistant Agent
 
-The [wolfram-assistant-agent](./reasoning/wolfram-assistant-agent) leverages Wolfram Alpha's conversational API to provide answers to user queries, particularly useful for mathematical and scientific questions. This agent enhances the dialogue with refined language processing to deliver a smooth and engaging user experience.
+The [wolfram-assistant-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop/wolfram-assistant-app) leverages Wolfram Alpha's conversational API to provide answers to user queries, particularly useful for mathematical and scientific questions. This agent enhances the dialogue with refined language processing to deliver a smooth and engaging user experience.
 
 ### Patient Information Agent
 
-The [patient-information-agent](./reasoning/patient-information-agent) is designed to collect and manage patient information before a doctor's visit. It demonstrates how xRx can be applied in healthcare scenarios, gathering essential medical data in a conversational manner.
+The [patient-information-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop) is designed to collect and manage patient information before a doctor's visit. It demonstrates how xRx can be applied in healthcare scenarios, gathering essential medical data in a conversational manner.
 
 ### Template Agent
 
