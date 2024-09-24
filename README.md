@@ -44,11 +44,11 @@ style G fill:#E1BEE7,stroke:#4A148C,stroke-width:2px,color:#000000
 
 ### High-Level Architecture
 
-- **Client**: Front end app experience which renders the UI and handles websocket communication with the Orchestrator. [Client Directory](./nextjs-client)
+- **Client**: Front end app experience which renders the UI and handles websocket communication with the Orchestrator. [Client Directory](./react-xrx-client)
 - **Orchestrator**: Manages the flow of data between various AI and traditional software components. [Orchestrator Directory](./orchestrator)
 - **STT (Speech-to-Text)**: Converts audio input to text. [STT Directory](./stt)
 - **TTS (Text-to-Speech)**: Converts text responses back to audio. [TTS Directory](./tts)
-- **Agent**: A collection reasoning agents responsible for the "reasoning" system of xRx. [Reasoning Directory](./reasoning)
+- **Agent**: A collection reasoning agents responsible for the "reasoning" system of xRx. [Reasoning Directory](./agent_framework)
 - **Guardrails Proxy**: A safety layer for the reasoning system. [Guardrails Proxy Directory](./guardrails-proxy)
 
 These components then communicate via the following sequence diagram
@@ -82,23 +82,23 @@ To showcase the capabilities of xRx, we've created multiple reasoning systems:
 
 ### Simple Tool Calling Agent
 
-We've created a simple tool calling agent that demonstrates basic functionality. This agent has access to tools like weather and time retrievers, and stock price lookup. It shows how any Python-based reasoning agent can be deployed into the xRx system. The code for this reasoning agent can be found [here](./reasoning/simple-agent).
+We've created a simple tool calling agent that demonstrates basic functionality. This agent has access to tools like weather and time retrievers, and stock price lookup. It shows how any Python-based reasoning agent can be deployed into the xRx system. The code for this reasoning agent can be found [here](https://github.com/8090-inc/xrx-sample-apps/tree/develop/simple-app).
 
 ### Shopify Interaction Agent
 
-We have built a sophisticated reasoning system that interacts with a Shopify store. The [shopify-agent](./reasoning/shopify-agent) allows users to interact with a reasoning system built on top of Shopify, handling tasks like product inquiries, order placement, and customer service.
+We have built a sophisticated reasoning system that interacts with a Shopify store. The [shopify-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop/shopify-app) allows users to interact with a reasoning system built on top of Shopify, handling tasks like product inquiries, order placement, and customer service.
 
 ### Wolfram Assistant Agent
 
-The [wolfram-assistant-agent](./reasoning/wolfram-assistant-agent) leverages Wolfram Alpha's conversational API to provide answers to user queries, particularly useful for mathematical and scientific questions. This agent enhances the dialogue with refined language processing to deliver a smooth and engaging user experience.
+The [wolfram-assistant-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop/wolfram-assistant-app) leverages Wolfram Alpha's conversational API to provide answers to user queries, particularly useful for mathematical and scientific questions. This agent enhances the dialogue with refined language processing to deliver a smooth and engaging user experience.
 
 ### Patient Information Agent
 
-The [patient-information-agent](./reasoning/patient-information-agent) is designed to collect and manage patient information before a doctor's visit. It demonstrates how xRx can be applied in healthcare scenarios, gathering essential medical data in a conversational manner.
+The [patient-information-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop) is designed to collect and manage patient information before a doctor's visit. It demonstrates how xRx can be applied in healthcare scenarios, gathering essential medical data in a conversational manner.
 
 ### Template Agent
 
-For developers looking to create their own reasoning agents, we provide a [template-agent](./reasoning/template-agent). This serves as a starting point for developing new reasoning agents within the xRx framework, offering a basic structure that can be easily customized and extended.
+For developers looking to create their own reasoning agents, we provide a [template-agent](https://github.com/8090-inc/xrx-sample-apps/tree/develop/simple-app). This serves as a starting point for developing new reasoning agents within the xRx framework, offering a basic structure that can be easily customized and extended.
 
 Each of these agents showcases different aspects of the xRx system's capabilities, from simple tool integration to complex domain-specific interactions. They demonstrate the flexibility and power of the xRx framework in building sophisticated AI-powered user experiences across various domains.
 </details>
@@ -156,7 +156,7 @@ GROQ_STT_API_KEY="<your groq api key>"
 
 ### How To Run with a Simple Agent
 
-1. Create a `.env` file with content at the root (`./`) See [env.quickstart](config/env-examples/env.quickstart) for an example of what this environment file should look like.
+1. Create a `.env` file with content at the root (`./`) See [env.quickstart](https://github.com/8090-inc/xrx-sample-apps/blob/develop/simple-app/env-example.txt) for an example of what this environment file should look like.
 
 2. Build and run the system using Docker:
 
