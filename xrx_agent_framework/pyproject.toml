@@ -1,5 +1,5 @@
 [project]
-name = "agent_framework"
+name = "xrx_agent_framework"
 version = "0.0.1"
 authors = [
   { name="8090", email="support@8090.inc" },
