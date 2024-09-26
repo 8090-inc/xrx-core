@@ -22,4 +22,4 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages]
-find = {include = ["agent_framework*"]}
+find = {include = ["xrx_agent_framework*"]}
