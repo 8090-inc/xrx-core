@@ -1,8 +1,8 @@
-# Agent Framework
+# xRx Agent framework
 
 ## Introduction
 
-The Agent Framework is a library designed to facilitate and abstract the infrastructure outside of application-specific code in the xRx system. It provides a set of tools and utilities that streamline the development of reasoning agents, allowing developers to focus on the core logic of their applications.
+The xRx Agent framework is a library designed to facilitate and abstract the infrastructure outside of application-specific code in the xRx system. It provides a set of tools and utilities that streamline the development of reasoning agents, allowing developers to focus on the core logic of their applications.
 
 ## Features
 
@@ -13,7 +13,7 @@ The Agent Framework is a library designed to facilitate and abstract the infrast
 
 ## Installation
 
-The Agent Framework is part of the xRx-core submodule submodule. Installation is automatic when you install the xRx-core submodule.
+The xRx Agent framework is part of the xRx-core submodule submodule. Installation is automatic when you install the xRx-core submodule.
 
 
 ## Contributing
