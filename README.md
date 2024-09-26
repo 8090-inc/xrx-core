@@ -43,13 +43,21 @@ style G fill:#E1BEE7,stroke:#4A148C,stroke-width:2px,color:#000000
 ```
 
 ### High-Level Architecture
+xRx includes xrx-core, which is a set of containers that provide the core functionality of the system reusable across different applications, and sample-apps, which are example applications that demonstrate how to use xrx-core.
 
-- **Client**: Front end app experience which renders the UI and handles websocket communication with the Orchestrator. [Client Directory](./nextjs-client)
-- **Orchestrator**: Manages the flow of data between various AI and traditional software components. [Orchestrator Directory](./orchestrator)
-- **STT (Speech-to-Text)**: Converts audio input to text. [STT Directory](./stt)
-- **TTS (Text-to-Speech)**: Converts text responses back to audio. [TTS Directory](./tts)
-- **Agent**: A collection reasoning agents responsible for the "reasoning" system of xRx. [Reasoning Directory](./reasoning)
-- **Guardrails Proxy**: A safety layer for the reasoning system. [Guardrails Proxy Directory](./guardrails-proxy)
+#### Application
+This code is application-specific.
+- **Client**: Front-end app rendering UI and handling WebSocket communication.
+- **Reasoning Agent**: Processes inputs and generates responses.
+
+#### xRx Core
+This code is reusable across applications.
+- **Orchestrator**: Manages data flow between components.
+- **STT (Speech-to-Text)**: Converts audio to text.
+- **TTS (Text-to-Speech)**: Converts text to audio.
+- **React xRx Client Library**: Reusable UI components and utilities.
+- **Agent Framework**: Foundation for building reasoning agents.
+- **Guardrails Proxy**: A safety layer for the reasoning system.
 
 These components then communicate via the following sequence diagram
 
@@ -76,101 +84,23 @@ sequenceDiagram
 
 </details>
 <details>
-<summary><strong>Reasoning Systems</strong></summary>
+<summary><strong>Reasoning Apps</strong></summary>
 
-To showcase the capabilities of xRx, we've created multiple reasoning systems:
+### Check out the Sample Apps
+xRx core is meant to be imported as a submodule into your project. Check out the [Sample-apps repository](https://github.com/8090-inc/xrx-sample-apps) for how to set up xRx core in your project.
 
-### Simple Tool Calling Agent
+To showcase the capabilities of xRx, we've created multiple reasoning applications:
 
-We've created a simple tool calling agent that demonstrates basic functionality. This agent has access to tools like weather and time retrievers, and stock price lookup. It shows how any Python-based reasoning agent can be deployed into the xRx system. The code for this reasoning agent can be found [here](./reasoning/simple-agent).
+- **Simple Tool Calling App**: For developers looking to create their own reasoning apps, we've created [Simple App](https://github.com/8090-inc/xrx-sample-apps/tree/develop/simple-app). Simple App is a simple tool calling app that demonstrates basic functionality. This App has access to tools like weather and time retrievers, and stock price lookup. It shows how any Python-based reasoning App can be deployed into the xRx system.
 
-### Shopify Interaction Agent
+- **Shopify App**: We have built a sophisticated reasoning system that interacts with a Shopify store. The [Shopify App](https://github.com/8090-inc/xrx-sample-apps/tree/develop/shopify-app) allows users to interact with a reasoning system built on top of Shopify, handling tasks like product inquiries, order placement, and customer service.
 
-We have built a sophisticated reasoning system that interacts with a Shopify store. The [shopify-agent](./reasoning/shopify-agent) allows users to interact with a reasoning system built on top of Shopify, handling tasks like product inquiries, order placement, and customer service.
+- **Wolfram Assistant App**: The [Wolfram Assistant App](https://github.com/8090-inc/xrx-sample-apps/tree/develop/wolfram-assistant-app) leverages Wolfram Alpha's conversational API to provide answers to user queries, particularly useful for mathematical and scientific questions. This App enhances the dialogue with refined language processing to deliver a smooth and engaging user experience.
 
-### Wolfram Assistant Agent
-
-The [wolfram-assistant-agent](./reasoning/wolfram-assistant-agent) leverages Wolfram Alpha's conversational API to provide answers to user queries, particularly useful for mathematical and scientific questions. This agent enhances the dialogue with refined language processing to deliver a smooth and engaging user experience.
-
-### Patient Information Agent
-
-The [patient-information-agent](./reasoning/patient-information-agent) is designed to collect and manage patient information before a doctor's visit. It demonstrates how xRx can be applied in healthcare scenarios, gathering essential medical data in a conversational manner.
-
-### Template Agent
-
-For developers looking to create their own reasoning agents, we provide a [template-agent](./reasoning/template-agent). This serves as a starting point for developing new reasoning agents within the xRx framework, offering a basic structure that can be easily customized and extended.
-
-Each of these agents showcases different aspects of the xRx system's capabilities, from simple tool integration to complex domain-specific interactions. They demonstrate the flexibility and power of the xRx framework in building sophisticated AI-powered user experiences across various domains.
-</details>
-
-<details>
-<summary><strong>Getting Started</strong></summary>
-
-### Prerequisites
-
-To deploy xRx locally, you need the following components:
-- [Docker](https://www.docker.com/get-started)
-- [Python](https://www.python.org/downloads/) (version 3.10)
-- [Node](https://nodejs.org/en/download/) (version 18)
-- [Pip](https://pip.pypa.io/en/stable/installing/)
-
-```bash
-brew cask install docker
-brew install python@3.10
-brew install node@18
-```
-
-### External Services Configuration
-
-xRx requires three external services: LLM, Text-to-Speech, and Speech-to-Text. Configure these services by setting the environment variables in the `.env` file at the root of the repository.
-
-#### LLMs
-
-We recommend Groq for high token throughput. Sign up at [Groq](https://console.groq.com/docs/quickstart) and obtain an API key.
-
-```
-LLM_API_KEY="<your Api Key>"
-LLM_BASE_URL="https://api.groq.com/openai/v1"
-LLM_MODEL_ID="llama3-70b-8192"
-```
-
-We recommend the models in the variables above for our repository, but they can be changed to any model that is supported by the LLM provider.
-
-#### Text to Speech
-
-We use Elevenlabs for text-to-speech. Sign up at [Elevenlabs](https://elevenlabs.io/app/sign-up) and obtain an API key.
-
-```
-ELEVENLABS_API_KEY=<your elevenlabs api key>
-ELEVENLABS_VOICE_ID=<your elevenlabs voice id>
-```
-
-#### Speech to Text
-
-We support multiple transcription services. For ease, use Groq's Whisper, given that you already have an API key.
-
-```
-STT_PROVIDER="groq"
-GROQ_STT_API_KEY="<your groq api key>"
-```
-
-### How To Run with a Simple Agent
-
-1. Create a `.env` file with content at the root (`./`) See [env.quickstart](config/env-examples/env.quickstart) for an example of what this environment file should look like.
-
-2. Build and run the system using Docker:
-
-```bash
-docker-compose up --build
-```
-
-3. Visit the xRx Demo client at [http://localhost:3000](http://localhost:3000)
-
-Enjoy exploring and interacting with the xRx system!
-
----
+- **Patient Information App**: The [Patient Information App](https://github.com/8090-inc/xrx-sample-apps/tree/develop/patient-information-app) is designed to collect and manage patient information before a doctor's visit. It demonstrates how xRx can be applied in healthcare scenarios, gathering essential medical data in a conversational manner.
 
 </details>
+
 <details>
 <summary><strong>Contributing</strong></summary>
 
@@ -184,6 +114,6 @@ For more information on contributing, see our [Contribution Guide](./contributin
 <details>
 <summary><strong>Documentation</strong></summary>
 
-See our documentation [here](./docs/README.md)
+See our documentation [here](https://8090-inc.github.io/xrx-core/)
 
 </details>
