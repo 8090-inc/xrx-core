@@ -54,7 +54,7 @@ The xRx Core contains the essential components that form the foundation of the x
 - #### React xRx Client Library
   **[Library]** A reusable React library that provides UI components and utilities for building the front-end of xRx-powered applications. It can be imported into each specific app to streamline development.
 
-- #### xRx Agent framework
+- #### xRx Agent Framework
   **[Library]** A reusable library that provides the foundation for building reasoning agents. It includes common functionalities and structures that can be extended and customized for specific application needs.
 
 These components are either containerized modules (like TTS, STT, Orchestrator) defined as separate Docker containers, or reusable libraries (like react-xrx-client and xrx_agent_framework) that can be imported into specific applications. This modular structure allows developers to easily customize and extend xRx for their specific needs while benefiting from a solid, tested foundation.

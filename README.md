@@ -56,7 +56,7 @@ This code is reusable across applications.
 - **STT (Speech-to-Text)**: Converts audio to text.
 - **TTS (Text-to-Speech)**: Converts text to audio.
 - **React xRx Client Library**: Reusable UI components and utilities.
-- **xRx Agent framework**: Foundation for building reasoning agents.
+- **xRx Agent Framework**: Foundation for building reasoning agents.
 - **Guardrails Proxy**: A safety layer for the reasoning system.
 
 These components then communicate via the following sequence diagram
