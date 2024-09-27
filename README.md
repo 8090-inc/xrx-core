@@ -2,6 +2,8 @@
 
 Build apps with "any modality input (x), reasoning (R), any modality output (x)." 
 
+> **Quick Start.**  We walk through the steps to get the xRx system up and running [here](https://8090-inc.github.io/xrx-core/).
+
 ## Introduction
 
 xRx is a framework for building AI-powered reasoning systems that interact with users across multiple modalities, where "x" represents the flexible integration of text, voice, and other interaction forms. 
