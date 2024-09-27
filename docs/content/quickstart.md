@@ -8,7 +8,7 @@ sidebar_position: 2
 
 In this quick start, we will walk through the steps to get the xRx system up and running. xRx is designed as a modular system with pluggable components, with the core consisting of the reasoning agent. You only need to code a reasoning flow, and xRx will automatically create an application that can listen, speak, and display custom UI components.
 
-For this guide, we will be using the "Simple App" example, but the setup process remains consistent for any application you choose to implement.
+For this guide, we will be using the `simple-app` example, but the setup process remains consistent for any application you choose to implement.
 
 ## Components
 
@@ -129,9 +129,9 @@ ELEVENLABS_API_KEY=<your elevenlabs api key>
 ELEVENLABS_VOICE_ID=<your elevenlabs voice id>
 ```
 
-## How To Run "Simple App"
+## How To Run `simple-app`
 
-1. Navigate to the `Simple App` directory within the `xrx-sample-apps` folder. Inside this directory, copy the `env-example.txt` to a `.env` file and input your API keys.
+1. Navigate to the `simple-app` directory within the `xrx-sample-apps` folder. Inside this directory, copy the `env-example.txt` to a `.env` file and input your API keys.
 
 2. Follow the instructions in the `Readme.md` file to install the necessary requirements.
 
