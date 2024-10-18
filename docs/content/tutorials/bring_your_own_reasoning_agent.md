@@ -79,7 +79,7 @@ Let's walk through the process of creating a custom tool, using a simple calcula
 First, we'll create the tool function:
 
 ```python
-from xrx_agent_framework import observability_decorator
+from agent_framework import observability_decorator
 
 @observability_decorator(name="calculator")
 def calculator(operation: str, x: float, y: float) -> str:
