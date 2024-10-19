@@ -445,7 +445,7 @@ export class Session {
             session: { [key: string]: string };
             action?: any;
         } = {
-            messages: this.chatHistory.slice(-MAX_AGENT_MESSAGES),
+            messages: this.chatHistory.filter(m => m.content && m.role !== 'tool').slice(-MAX_AGENT_MESSAGES),
             session: this.sessionDict
         };
 
