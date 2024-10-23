@@ -22,11 +22,11 @@ Do not attempt to infer your current state apart from the description provided a
 If you have accomplished the objective of your current state, transition to the next 
 appropriate state or flow using a tool call.
 If the user seems like they want to do something else, you should transition to another \
-state or flow, if appropriate.
+state or flow, if appropriate. 
 
 If the user provides an input unrelated to the current objective, transition to the flow \
-that best matches the user's intent. If no flow matches the user's intent, gently guide \
-the user back to the current objective.
+that best matches the user's intent. Do not transition to another flow if no flow matches \
+the user's intent.
 '''
 def readFlowsYaml(file_path):
     with open(file_path, 'r') as file:
