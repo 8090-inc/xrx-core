@@ -1,6 +1,8 @@
 from .llm import json_fixer, initialize_async_llm_client
 import os
 import yaml 
+import json
+import openai
 import pdb
 
 # set up llm
@@ -26,7 +28,8 @@ These are the questions you should answer about the task. These are all yes or n
 You must return a perfectly formatted JSON object which can be serialized with the following keys:
 - 'success': This should be TRUE if you have determined that the task succeeded, and FALSE otherwise.
 - 'reason': A string explaining why the task succeeded or failed.
-- 'audits': For each audit listed above under 'Audits', return a perfectly formatted JSON object which 
+- 'audits': If there are no audits listed above under 'Audits', make this an empty array. Otherwise, 
+   for each audit listed above under 'Audits', return a perfectly formatted JSON object which 
    can be serialized with the following keys: 
     -'text': This should be the exact text of the audit, with no modifications.
     -'success': This should be TRUE if the audit can be answered in the affirmative, and FALSE otherwise. 
@@ -66,11 +69,11 @@ def get_sibling_file(current_file_path: str, sibling_filename: str) -> str:
 # note: not truthy! just something that can be construed as true. 
 # this is because the LLM doesn't return 'true' in a consistent
 # format
-def is_truish(self, val):
+def is_truish(val):
     return val == 'true' or val == 'True' or val == True
 
 def genPrompt(taskData, audits):
-    testPrompt2 = testPrompt.replace('{taskData}', taskData)
+    testPrompt2 = testPrompt.replace('{taskData}', json.dumps(taskData))
     return testPrompt2.replace('{audits}', ''.join([f"- {audit}\n" for audit in audits]))
 
 class TestResult():
@@ -81,8 +84,9 @@ class TestResult():
         self.fullResponse = fullResponse
 
 class TaskNode():
-    def __init__(self):
+    def __init__(self, userGoal=None):
         self._children = []
+        self._userGoal = userGoal
 
     def spawnChild(self):
         if hasattr(self, "_closed"):
@@ -109,7 +113,11 @@ class TaskNode():
             self._stage = stage
 
         self._substage = substage
+
         self._taskData = taskData
+        
+        if (self._userGoal):
+            self._taskData['userGoal'] = self._userGoal
 
     ## this should be called after all children have been spawned. writing taskNode.close()
     ## is basically a way to assert two things:
@@ -150,23 +158,23 @@ class TaskNode():
             self._result = TestResult(succeeded, reason, [], None)
         else:
             auditKey = "-".join([s for s in [self._stage, self._substage] if s])
-            auditQuestions = testConfig["audits"]["stages"][auditKey]
+            auditStages = testConfig["audits"]["stages"]
+            auditQuestions = testConfig["audits"]["stages"].get(auditKey, [])
 
             response = await self._runAudits(self._taskData, auditQuestions, llm)
 
-            audits = response.audits
             # for now, we'll say that the task succeeds if and only if 
             # every audit succeeds. we do ask the LLM to say whether 
             # it thinks the task has succeeded, but that's just to
             # prime it to generate the 'reason' field correctly
-            succeeded = all([is_truish(audits[a].succeeded) for a in response.audits])
-            reason = response.reason if not succeeded else ""
+            succeeded = all([is_truish(a['success']) for a in response["audits"]])
+            reason = response["reason"] if not succeeded else ""
 
             # TODO(mprast): change this if it ends up being too confusing
-            response.succeeded = succeeded
-            response.reason = reason
+            response["success"] = succeeded
+            response["reason"] = reason
 
-            self._response = TestResult(succeeded, reason, auditList, response)
+            self._result = TestResult(succeeded, reason, auditQuestions, response)
 
         self._tested = True
 
@@ -200,6 +208,31 @@ class TaskNode():
 
         return llm_output
 
+    def toDict(self, simple):
+        node_dict = self.__dict__.copy()
+
+        if '_children' in node_dict:
+            node_dict['_children'] = [child.toDict(simple) for child in self._children]
+
+        if '_result' in node_dict:
+            node_dict['_result'] = self._result.__dict__
+
+        if simple:
+            simple_dict = {}
+            simple_dict['stage'] = node_dict['_stage']
+            simple_dict['taskData'] = node_dict['_taskData']
+            simple_dict['succeeded'] = node_dict['_result']['succeeded']
+            simple_dict['reason'] = node_dict['_result']['reason']
+            simple_dict['audits'] = node_dict['_result']['fullResponse']['audits']
+            simple_dict['children'] = node_dict['_children']
+
+            node_dict = simple_dict
+
+        return node_dict 
+
+    def toString(self, simple=False):
+        return json.dumps(self.toDict(simple))
+
 class TreeTestRunner():
     def loadConfig(self, path):
         loadedConfig = readYaml(path)
@@ -222,7 +255,7 @@ class TreeTestRunner():
                 "TreeTestRunner.")
 
         self._testName = testName
-        root = TaskNode()
+        root = TaskNode(self._testConfig["userGoal"])
         root._stage = "root"
         root._compositive = rootCompositive
         self.root = root
