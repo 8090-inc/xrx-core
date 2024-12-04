@@ -59,6 +59,9 @@ class StateMachine():
 
     @staticmethod
     def getStateMachinePrompt(input_dict):
+        if (not input_dict['stateMachine']):
+            return "<no state machine provided>"
+
         flows = input_dict['stateMachine']['flows']
         current_flow = input_dict['stateMachine']['currentFlow']
 
@@ -72,6 +75,9 @@ class StateMachine():
 
     @staticmethod
     def getStateMachineTransitionCalls(input_dict):
+        if (not input_dict['stateMachine']):
+            return "<no state machine provided>"
+
         tool_calls = []
 
         flows = input_dict['stateMachine']['flows']

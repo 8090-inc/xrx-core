@@ -28,6 +28,8 @@ These are the questions you should answer about the task. These are all yes or n
 You must return a perfectly formatted JSON object which can be serialized with the following keys:
 - 'success': This should be TRUE if you have determined that the task succeeded, and FALSE otherwise.
 - 'reason': A string explaining why the task succeeded or failed.
+- 'userBehavior': A string describing the behavior of the user during this task (if the user's behavior can be inferred from the TaskDetails)
+- 'agentBehavior': A string describing the behavior of the agent (also called the 'assistant') during this task.
 - 'audits': If there are no audits listed above under 'Audits', make this an empty array. Otherwise, 
    for each audit listed above under 'Audits', return a perfectly formatted JSON object which 
    can be serialized with the following keys: 

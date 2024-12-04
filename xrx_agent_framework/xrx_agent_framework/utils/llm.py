@@ -13,6 +13,7 @@ import json
 import logging
 from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.core.tools import FunctionTool
+import pdb
 
 load_dotenv()
 observability_library = os.getenv("LLM_OBSERVABILITY_LIBRARY", 'none').lower()
@@ -142,7 +143,7 @@ async def json_fixer(text):
         ]
         llm_client = initialize_llm_client()
         LLM_MODEL_ID_JSON_FIXER = os.environ.get('LLM_MODEL_ID_JSON_FIXER', '')
-        response = await llm_client.chat.completions.create(
+        response = llm_client.chat.completions.create(
             model=LLM_MODEL_ID_JSON_FIXER,
             messages=messages,
             temperature=0.9,
