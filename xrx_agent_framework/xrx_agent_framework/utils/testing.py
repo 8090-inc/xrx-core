@@ -3,11 +3,11 @@ import os
 import yaml 
 import json
 import openai
-import pdb
 
 # set up llm
 LLM_CLIENT = initialize_async_llm_client()
 LLM_MODEL_ID = os.environ.get('LLM_MODEL_ID', '')
+test_on = os.environ.get('TREE_TEST_RUNNER_ON', 'false').lower() == 'true'
 
 testPrompt =  '''\
 You are an expert at answering questions about a particular task, based on certain information 
@@ -100,6 +100,8 @@ class TaskNode():
 
     # TODO(mprast): maybe find a cleaner way to handle the root case
     def setTaskNodeDetails(self, compositive, stage, substage, taskData):
+        if not test_on:
+            return
         if (getattr(self, "_stage", "") != "root" and (compositive is None)):
             raise Exception("The first positional argument of setTaskNodeDetails (compositive) must be set!")
 
@@ -130,6 +132,9 @@ class TaskNode():
     ## that's different from what the programmer expected (as opposed to producing
     ## garbled test results)
     def close(self):
+        if not test_on:
+            return
+
         if (not hasattr(self, "_taskData")):
             raise Exception("Task data has not been provided for this taskNode. Task data " +
                 "must be provided for a node before it can be closed.")
@@ -263,6 +268,9 @@ class TreeTestRunner():
         return root
 
     async def runTest(self):
+        if not test_on:
+            return
+
         llm = LLM_CLIENT
 
         if not hasattr(self, "root"):
