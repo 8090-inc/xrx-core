@@ -1,0 +1,25 @@
+[project]
+name = "xrx_agent_framework"
+version = "0.0.1"
+authors = [
+  { name="8090", email="support@8090.inc" },
+]
+description = "A framework to connect any agent to the xrx framework"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache 2.0",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/8090-inc/xrx-core"
+Issues = "https://github.com/8090-inc/xrx-core/issues"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = {include = ["xrx_agent_framework*"]}
