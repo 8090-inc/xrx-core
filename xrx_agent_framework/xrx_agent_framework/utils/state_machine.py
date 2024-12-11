@@ -30,7 +30,10 @@ the user's intent.
 '''
 def readFlowsYaml(file_path):
     with open(file_path, 'r') as file:
-        flows_data = yaml.safe_load(file)
+        try:
+            flows_data = yaml.safe_load(file)
+        except yaml.YAMLError as e:
+            raise Exception(f"Your flows.yaml file at {file_path} is malformed - please fix it! '{str(e)}'") from e
     return flows_data
 
 
