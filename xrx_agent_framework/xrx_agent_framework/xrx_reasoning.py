@@ -13,10 +13,17 @@ load_dotenv()
 
 class Message(BaseModel):
     role: str
+    content: Optional[str]
+
+class ToolCallMessage(BaseModel):
+    role: str
     content: str
+    name: str
+    tool_call_id: str
+
 
 class AgentRequest(BaseModel):
-    messages: List[Message] = Field(..., description="List of messages in the conversation")
+    messages: List[Message | ToolCallMessage] = Field(..., description="List of messages in the conversation")
     session: Dict[str, Any] = Field(default_factory=dict, description="Session information for the conversation")
     action: Optional[Dict[str, Any]] = Field({}, description="Optional action to be performed by the agent")
 
