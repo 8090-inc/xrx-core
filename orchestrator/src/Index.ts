@@ -56,7 +56,7 @@ server.register(async function (fastify) {
                 <Pause length="1"/>
                 <Say>State your intentions.</Say>
                 <Connect>
-                    <Stream url="wss://3.131.14.186/api/v1/ws" />
+                    <Stream url="ws://3.131.14.186/api/v1/ws" />
                 </Connect>
             </Response>`;
 
