@@ -63,12 +63,12 @@ export class Session {
     isTTSStreaming: boolean;
     agentResponseCache: {type: string, agentResponse: string, modality: string}[];  
 
-    public audioResponse: (audio:Buffer) => void;
+    public audioResponse: (audio:ArrayBuffer) => void;
     public textResponse: (user:string, content:string, type:string) => void;
 
     constructor(
         server: FastifyInstance,
-        audioResponse: (audio:Buffer) => void, 
+        audioResponse: (audio:ArrayBuffer) => void, 
         textResponse: (user:string, content:string, type:string) => void
     )
     {
@@ -225,8 +225,8 @@ export class Session {
     ttsOnMessage = async (event: WebSocket.MessageEvent) => {
         // detect that the event.data is not a string and then send it to the client
         if (typeof event.data !== 'string') {
-            const bufferData = Buffer.from(event.data as Buffer);
-            this.audioResponse(bufferData);
+            // THIS IS WHERE WE SEND DATA BACK TO TWILIO
+            this.audioResponse(new Uint8Array(event.data as any).buffer);
         } else {
             this.server.log.debug(`Received from TTS: ${event.data}`);
             const data = JSON.parse(event.data);
@@ -340,6 +340,7 @@ export class Session {
         const audioTimeMs = (messageBuffer.length / SAMPLE_RATE / 2) * 1000;
         // do vad here?
         const res = await vad.processAudio(messageBuffer, SAMPLE_RATE);
+
         // handle the result of the VAD
         switch (res) {
             case VAD.Event.ERROR:
