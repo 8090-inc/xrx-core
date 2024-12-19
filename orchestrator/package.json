@@ -27,6 +27,12 @@
   "dependencies": {
     "@fastify/websocket": "^10.0.1",
     "async": "^3.2.5",
+    "fluent-ffmpeg": "*",
+    "@ffmpeg-installer/ffmpeg": "*",
+    "wavefile": "*",
+    "fluent-ffmpeg": "*",
+    "@ffmpeg-installer/ffmpeg": "*",
+    "wavefile": "*",
     "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
     "node-vad": "^1.1.4",
