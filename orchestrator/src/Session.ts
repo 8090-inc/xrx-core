@@ -506,7 +506,7 @@ export class Session {
 
                                 // if the customer response node is present, send an audio response or a JSON object for a widget
                                 lastMessages = data['messages'];
-                                if(data.node === "CustomerResponse" || data.node === "TaskDescriptionResponse") {
+                                if(data.node === "CustomerResponse" || data.node === "TaskDescriptionResponse" || data.node === "Routing") {
                                     await this.handleAgentResponse("CustomerResponse", data.output, modality);
                                 }
                                 else if(data.node === "Widget") {
